@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IELTS Essay Checker</title>
+  <style>
+    body { font-family: Arial; padding: 20px; max-width: 800px; margin: auto; }
+    textarea { width: 100%; height: 200px; }
+    button { padding: 10px 20px; margin-top: 10px; }
+    #result { margin-top: 20px; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>IELTS Essay Checker (Free)</h1>
+  <textarea id="essay" placeholder="Write or paste your IELTS essay here..."></textarea>
+  <button onclick="checkEssay()">Check Essay</button>
+  <div id="result"></div>
+
+  <script>
+    async function checkEssay() {
+      const essay = document.getElementById("essay").value;
+      document.getElementById("result").innerText = "Checking...";
+      const response = await fetch("https://your-backend-url.onrender.com/check-essay", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ essay })
+      });
+      const data = await response.json();
+      document.getElementById("result").innerText = data.result;
+    }
+  </script>
+</body>
+</html>
